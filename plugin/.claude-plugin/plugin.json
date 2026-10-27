@@ -1,6 +1,6 @@
 {
   "name": "hion-debriefs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "HiON debriefs: the /debriefs skill for the Monday Debriefs board, plus a band above the prompt showing how many debrief questions are waiting for you.",
   "types": "./types/index.d.ts",
   "author": {
