@@ -48,7 +48,8 @@ For each open debrief, earliest Due first:
 3. Map a free-text answer: a letter or an option's label → that letter · "don't know", "dk", "no idea" → **Don't know** · "ask <name>", "wrong person", "<name> should answer" → **Wrong person**, Note = the name · text containing "keep out", "private" or "off the record" → tick `keep_out` and use the rest of the text for the Answer · anything else → **Other**, Note = the text.
 4. After every batch, write with `update_items` (boardId = the subitem board): `{"answer":{"label":"B"},"note":{"text":"..."},"answered_on":{"date":"YYYY-MM-DD"},"via":{"label":"Claude"}}` plus `"keep_out":{"checked":"true"}` when asked. **Never overwrite a non-empty `answer`.**
 5. When every question of a debrief has an Answer: `change_item_column_values` on the debrief: `{"stage":{"label":"Answered"}}`. The automations stamp the date, move the row and notify Will.
-6. Finish: "N answers logged in Monday; Will is notified." Then run **check** again so the badge file goes to zero.
+6. Finish: "N answers logged in Monday; Will is notified."
+7. Run **check** again, every time, so `~/.claude/debriefs/state.json` matches the board; a skipped check leaves the band showing questions that no longer exist.
 
 Idempotent by construction: running twice asks nothing new, because the key is each question's own id and its empty Answer, never its position in the list.
 
@@ -94,3 +95,4 @@ Draft with the asker, then show the whole draft and get a tap of approval before
    Skip Don't know and Wrong person and any `keep_out` question; list them in the report. For Wrong person with a name, **create the follow-up debrief for that person automatically** (Will's ruling 2026-10-27): same question, same why it matters, same Source, due today + 3, and say so in the report.
 3. In the vault: `git add sources/debriefs && git commit -m "Debriefs: ingest <debrief name>"` (the vault also auto-syncs).
 4. Set `brain_note` `{"url":"<GitHub blob URL of the first note>","text":"<file name>"}` and `stage` Ingested on the debrief. A debrief whose every answer was kept out still becomes Ingested, with `brain_note` blank.
+5. Run **check** so the badge file matches the board (the band reads only that file; nothing else refreshes it between the daily runs).
