@@ -1,0 +1,14 @@
+{
+  "name": "hion",
+  "owner": {
+    "name": "HiON"
+  },
+  "description": "HiON's Claude Code plugins: debriefs on the Monday board.",
+  "plugins": [
+    {
+      "name": "hion-debriefs",
+      "source": "./plugin",
+      "description": "The /debriefs skill for the Monday Debriefs board, plus a band above the prompt showing how many debrief questions are waiting."
+    }
+  ]
+}
